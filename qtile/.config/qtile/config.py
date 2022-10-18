@@ -38,8 +38,8 @@ from libqtile import qtile
 from libqtile import extension
 import os
 import subprocess
-import notify2 #pacman -S python-notify2
-    # notify2.init('qtileconfig')
+#import notify2 #pacman -S python-notify2
+    #notify2.init('qtileconfig')
     # n = notify2.Notification("new client opened")
     # n.show()
 
@@ -116,10 +116,9 @@ keys = [
 
 
 
+        #opacity
         Key([mod], "minus", lazy.window.down_opacity()),
         Key([mod], "equal", lazy.window.up_opacity()),
-
-
 
         # ---
         Key([mod],"f",lazy.window.toggle_fullscreen(),desc="toggle_fullscreen"),
@@ -138,11 +137,16 @@ keys = [
         #my launch things
         Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
         Key([mod],"b", lazy.spawn("brave"),desc="Launch browser"),
-        Key([], 'F11', lazy.group['u'].dropdown_toggle('tunes')),
+        Key([mod],"s", lazy.spawn("flameshot gui"),desc="screen shot"),
+
+        #ScratchPad binds----------
+        Key([mod], 'space', lazy.group['term'].dropdown_toggle('terminal')),
+        Key([mod], 'd', lazy.group['fileman'].dropdown_toggle('filemanager')),
+        Key([mod], 'm', lazy.group['dict'].dropdown_toggle('dictionary')),
+        Key([mod], 'n', lazy.group['calc'].dropdown_toggle('calculator')),
         ]
 
 # groups = [Group(i) for i in "123456789"]
-
 #static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 groups = [Group("1",label=""),
           Group("2",label=""),
@@ -153,7 +157,11 @@ groups = [Group("1",label=""),
           Group("7",label=""),
           Group("8",label=""),
           Group("9",label=""),
-          ScratchPad("u",[DropDown("tunes","alacritty")])
+          #ScratchPads
+          ScratchPad("term",[DropDown("terminal","alacritty")]),
+          ScratchPad("fileman",[DropDown("filemanager","dolphin")]),
+          ScratchPad("dict",[DropDown("dictionary","quick-lookup --selection")]),
+          ScratchPad("calc",[DropDown("calculator","alacritty -e 'wcalc'")])
           ]
 
 
