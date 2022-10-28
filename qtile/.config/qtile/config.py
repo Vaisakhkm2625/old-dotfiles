@@ -33,16 +33,13 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen,ScratchPad, D
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
-from libqtile import qtile
 
-from libqtile import extension
 import os
 import subprocess
 #import notify2 #pacman -S python-notify2
     #notify2.init('qtileconfig')
     # n = notify2.Notification("new client opened")
     # n.show()
-
 
 mod = "mod4"
 mod1 = "mod1" #alt
@@ -81,7 +78,8 @@ keys = [
             desc="Toggle between split and unsplit sides of stack",
             ),
         # Toggle between different layouts as defined below
-        Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+        #Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+        Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
         Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
         Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
         Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -94,12 +92,13 @@ keys = [
         Key([mod], "t", lazy.spawn('rofi -show window'), desc="switch to a opened window"),
 
 
+
         #Media keys:
         # Sound with amixer
         ###########################(Dont uncoment, idk how this works)  Key([], "XF86AudioMute", lazy.spawn("amixer sset Master toggle")),
         Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-")),
         Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+")),
-        # Screen brightness controls with xbacklight idk why tf not working
+# Screen brightness controls with xbacklight idk why tf not working
         Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10")),
         Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10")),
 
@@ -114,15 +113,13 @@ keys = [
 
         Key([mod,mod1], "space", lazy.spawn("playerctl play-pause"), desc="Play/Pause player"),
 
-
-
         #opacity
         Key([mod], "minus", lazy.window.down_opacity()),
         Key([mod], "equal", lazy.window.up_opacity()),
 
         # ---
         Key([mod],"f",lazy.window.toggle_fullscreen(),desc="toggle_fullscreen"),
-        Key([mod,"shift"],"space",lazy.window.toggle_floating(),desc="toggle_fullscreen"),
+        Key([mod,"control"],"space",lazy.window.toggle_floating(),desc="toggle_fullscreen"),
         Key([mod], "w",
             lazy.to_screen(0),
             desc='Keyboard focus to monitor 1'
@@ -137,10 +134,13 @@ keys = [
         #my launch things
         Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
         Key([mod],"b", lazy.spawn("brave"),desc="Launch browser"),
-        Key([mod],"s", lazy.spawn("flameshot gui"),desc="screen shot"),
+        Key([mod,"shift" ],"d", lazy.spawn("dolphin"),desc="file manager"),
+        Key([mod,"shift" ],"s", lazy.spawn("flameshot gui"),desc="screen shot"),
+        Key([mod],"s", lazy.spawn(os.path.expanduser("~/.config/qtile/scripts/quicksearch.sh")),desc="selection quicksearch"),
+        Key([mod],"a", lazy.spawn(os.path.expanduser("~/.config/qtile/scripts/scratchpadnotes.sh")),desc="quicknote"),
 
         #ScratchPad binds----------
-        Key([mod], 'space', lazy.group['term'].dropdown_toggle('terminal')),
+        Key([mod], 'z', lazy.group['term'].dropdown_toggle('terminal')),
         Key([mod], 'd', lazy.group['fileman'].dropdown_toggle('filemanager')),
         Key([mod], 'm', lazy.group['dict'].dropdown_toggle('dictionary')),
         Key([mod], 'n', lazy.group['calc'].dropdown_toggle('calculator')),
@@ -157,23 +157,28 @@ groups = [Group("1",label=""),
           Group("7",label=""),
           Group("8",label=""),
           Group("9",label=""),
-          #ScratchPads
-          ScratchPad("term",[DropDown("terminal","alacritty")]),
-          ScratchPad("fileman",[DropDown("filemanager","dolphin")]),
-          ScratchPad("dict",[DropDown("dictionary","quick-lookup --selection")]),
-          ScratchPad("calc",[DropDown("calculator","alacritty -e 'wcalc'")])
           ]
 
 
-#groups = [Group("1",label="CAL"),
-           #      Group("2",label="WWW" ),
-           #      Group("3",label="DEV" ),
-           #      Group("4",label="DOC"),
-           #      Group("5",label="SYS"),
-           #      Group("6",label="VBOX"),
-           #      Group("7",label="TEAMS"),
-           #      Group("8",label="VID"),
-           #      Group("9",label="MUS"),]
+# groups = [Group("1",label="CAL"),
+            #                 Group("2",label="WWW" ),
+            #                 Group("3",label="DEV" ),
+            #                 Group("4",label="DOC"),
+            #                 Group("5",label="SYS"),
+            #                 Group("6",label="VBOX"),
+            #                 Group("7",label="TEAMS"),
+            #                 Group("8",label="VID"),
+            #                 Group("9",label="MUS"),]
+
+scratchpad = [
+        #ScratchPads
+        ScratchPad("term",[DropDown("terminal","alacritty")]),
+        ScratchPad("fileman",[DropDown("filemanager","dolphin")]),
+        ScratchPad("dict",[DropDown("dictionary","quick-lookup --selection")]),
+        ScratchPad("calc",[DropDown("calculator","qalculate-qt")])
+        ]
+
+groups.extend(scratchpad)
 
 @hook.subscribe.client_new
 def client_new(client):
@@ -240,7 +245,7 @@ screens = [
             top=bar.Bar(
                 [
                     widget.CurrentLayout(),
-                    widget.GroupBox(),
+                    widget.GroupBox(disable_drag = True),
                     widget.Prompt(),
                     widget.WindowName(),
                     widget.Chord(
@@ -250,22 +255,26 @@ screens = [
                         name_transform=lambda name: name.upper(),
                         ),
                     #widget.TextBox("default config", name="default"),
-                    widget.TextBox("vaiskar", name="default"),
-                    widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                    widget.TextBox("vaisakh", name="default",foreground="#d75f5f"),
+                    # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                     # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                     # widget.StatusNotifier(),
                     widget.Systray(),
                     widget.Volume(),
+                    widget.Net(interface="wlp0s20f3"),
                     #widget.CPUGraph(),
-                    #widget.BatteryIcon(),
-                    widget.Battery(discharge_char="", charge_char="",full_char="",notify_below=38),
-                    widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                    widget.QuickExit(),
+                    widget.BatteryIcon(),
+                    widget.Battery(notify_below=10),
+                    #widget.Battery(discharge_char="", charge_char="",full_char="",notify_below=10),
+                    #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                    widget.Clock(format="%Y-%m-%d" ),
+                    widget.Clock(background="#c4a7e7", foreground="#191724", format="%I:%M%p", update_interval=60.0),
+                    widget.QuickExit(default_text='⏻', countdown_format='[{}]',background="#ff0000"),
                     ],
                 24,
                 #background=["#0000FF","#000000", "#FFFFFF"]
                 # background="#00FF00",
-                # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+                border_width=[2, 0, 2, 0],  # Draw top and bottom borders
                 # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
                 ),
             ),
@@ -277,6 +286,8 @@ mouse = [
         Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
         Click([mod], "Button2", lazy.window.bring_to_front()),
         ]
+
+
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
@@ -316,11 +327,8 @@ wl_input_rules = None
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
-
-
 #autostart
 @ hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.run([home])
-

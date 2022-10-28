@@ -1,0 +1,2 @@
+stow qtile/
+stow astronvim/

@@ -3,7 +3,9 @@
 variety &
 picom --config ~/.config/qtile/picom.conf &
 dunst &
-morgen &
+#morgen &
+todoist &
 exec --no-startup-id kdeconnect-cli &
+alttab &
 teams &
 snap run teams &
