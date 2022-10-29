@@ -218,7 +218,7 @@ for i in groups[0:9]:
             )
 
 layouts = [
-        layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+        layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], margin=5, border_width=4),
         layout.Max(),
         # Try more layouts by unleashing below layouts.
         # layout.Stack(num_stacks=2),
@@ -306,6 +306,57 @@ floating_layout = layout.Floating(
             Match(title="pinentry"),  # GPG key password entry
             ]
         )
+
+
+floating_window_index = 0
+
+def float_cycle(qtile, forward: bool):
+    global floating_window_index
+    floating_windows = []
+    for window in qtile.current_group.windows:
+        if window.floating:
+            floating_windows.append(window)
+    if not floating_windows:
+        return
+    floating_window_index = min(floating_window_index, len(floating_windows) -1)
+    if forward:
+        floating_window_index += 1
+    else:
+        floating_window_index += 1
+    if floating_window_index >= len(floating_windows):
+        floating_window_index = 0
+    if floating_window_index < 0:
+        floating_window_index = len(floating_windows) - 1
+    win = floating_windows[floating_window_index]
+    win.cmd_bring_to_front()
+    win.cmd_focus()
+
+@lazy.function
+def float_cycle_backward(qtile):
+    float_cycle(qtile, False)
+
+@lazy.function
+def float_cycle_forward(qtile):
+    float_cycle(qtile, True)
+
+keys.extend( [ Key([mod, "mod1"], "period", float_cycle_forward),
+    Key([mod, "mod1"], "comma", float_cycle_backward),
+])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
