@@ -1,11 +1,13 @@
 #!/bin/sh
 
-variety &
+variety &         # wallpaper setter
 picom --config ~/.config/qtile/picom.conf &
-dunst &
+dunst &           # notificaiton deamon
 #morgen &
-todoist &
-exec --no-startup-id kdeconnect-cli &
-alttab &
-teams &
-snap run teams &
+todoist &         # my todo app 
+exec --no-startup-id kdeconnect-cli & #KDE connect deamon
+flameshot &       # screen shot app
+#alttab &          # utility for alttabing
+
+teams &           # teams for work
+snap run teams &  # teams for collage

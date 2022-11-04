@@ -28,12 +28,15 @@
 #ref :- https://github.com/ThomasChiroux/qtile-config/blob/master/config.py
 
 
+
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen,ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
 
+
+import plugins.traverse as pt
 import os
 import subprocess
 #import notify2 #pacman -S python-notify2
@@ -43,6 +46,7 @@ import subprocess
 
 mod = "mod4"
 mod1 = "mod1" #alt
+gap = 3
 terminal = guess_terminal()
 
 keys = [
@@ -71,12 +75,12 @@ keys = [
         # Split = all windows displayed
         # Unsplit = 1 window displayed, like Max layout, but still with
         # multiple stack panes
-        Key(
-            [mod, "shift"],
-            "Return",
-            lazy.layout.toggle_split(),
-            desc="Toggle between split and unsplit sides of stack",
-            ),
+         Key(
+             [mod, "shift"],
+             "Return",
+             lazy.layout.toggle_split(),
+             desc="Toggle between split and unsplit sides of stack",
+             ),
         # Toggle between different layouts as defined below
         #Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
         Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
@@ -160,6 +164,11 @@ groups = [Group("1",label=""),
           ]
 
 
+# Presets: , , ██, ░▒▓▓▒░, 
+bar_left = ""
+bar_right = ""
+
+
 # groups = [Group("1",label="CAL"),
             #                 Group("2",label="WWW" ),
             #                 Group("3",label="DEV" ),
@@ -218,7 +227,7 @@ for i in groups[0:9]:
             )
 
 layouts = [
-        layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], margin=3, border_width=4),
+        layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], margin=gap, border_width=4),
         layout.Max(),
         # Try more layouts by unleashing below layouts.
         # layout.Stack(num_stacks=2),
@@ -235,19 +244,26 @@ layouts = [
 
 widget_defaults = dict(
         font="sans",
-        fontsize=12,
+        fontsize=14,
         padding=3,
         )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
         Screen(
             top=bar.Bar(
                 [ 
+                    widget.Spacer(length=10),
                     widget.CurrentLayout(),
                     widget.GroupBox(disable_drag = True),
                     widget.Prompt(),
-                    widget.WindowName(),
+                    #widget.Spacer(background="#00000000" ),
+                    widget.Spacer(),
+                    #widget.WindowName(format = '{name}'),
+                    widget.TaskList(theme_mode="preferred"),
+                    #widget.Spacer(background="#00000000" ),
+                    widget.Spacer(),
                     widget.Chord(
                         chords_colors={
                             "launch": ("#ff0000", "#ffffff"),
@@ -261,26 +277,28 @@ screens = [
                     # widget.StatusNotifier(),
                     widget.Systray(),
                     widget.Volume(),
-                    widget.Net(interface="wlp0s20f3"),
+                    widget.Net(interface="wlp0s20f3",format=" {down}↓↑{up}", width= 108),
                     #widget.CPUGraph(),
-                    widget.BatteryIcon(),
-                    widget.Battery(notify_below=10),
-                    #widget.Battery(discharge_char="", charge_char="",full_char="",notify_below=10),
+                    #widget.BatteryIcon(),
+                    #widget.Battery(notify_below=10,update_interval=10),
+                    widget.Battery(format="{char} {percent:2.0%}",discharge_char="", charge_char="",full_char="",notify_below=10,update_interval=10),
                     #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                     widget.Clock(format="%Y-%m-%d" ),
+                    widget.TextBox("",padding=0,fontsize=20, name="default",foreground="#d75f5f"),
                     widget.Clock(background="#c4a7e7", foreground="#191724", format="%I:%M%p", update_interval=60.0),
-                    widget.QuickExit(default_text='⏻', countdown_format='[{}]',background="#ff0000"),
+                    widget.QuickExit(default_text='⏻',  countdown_format='[{} seconds remaining]',background="#ff0000"),
+                    widget.Spacer(length=1,background="#ff0000")
                     ],
                 24,
-                margin=3,
+                margin=gap*2,
                 #background=["#0000FF","#000000", "#FFFFFF"]
-                 background="#000011aa",
+                background="#000011aa",
                 border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-                # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+                 #border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
                 ),
-            right=bar.Gap(3), 
-            left=bar.Gap(3),
-            bottom=bar.Gap(3)
+            right=bar.Gap(gap), 
+            left=bar.Gap(gap),
+            bottom=bar.Gap(gap)
             ),
         ]
 
@@ -349,18 +367,6 @@ keys.extend( [ Key([mod, "mod1"], "period", float_cycle_forward),
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -387,3 +393,11 @@ wmname = "LG3D"
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.run([home])
+
+keys.extend([
+    Key([mod], 'k', lazy.function(pt.up)),
+    Key([mod], 'j', lazy.function(pt.down)),
+    Key([mod], 'h', lazy.function(pt.left)),
+    Key([mod], 'l', lazy.function(pt.right)),
+])
+
