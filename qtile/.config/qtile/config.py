@@ -97,12 +97,13 @@ keys = [
 
 
 
+        #copied
         #Media keys:
         # Sound with amixer
         ###########################(Dont uncoment, idk how this works)  Key([], "XF86AudioMute", lazy.spawn("amixer sset Master toggle")),
         Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-")),
         Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+")),
-# Screen brightness controls with xbacklight idk why tf not working
+        # Screen brightness controls with xbacklight idk why tf not working
         Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10")),
         Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10")),
 
@@ -115,7 +116,10 @@ keys = [
         Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc="Skip to next"),
         Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc="Skip to previous"),
 
+
         Key([mod,mod1], "space", lazy.spawn("playerctl play-pause"), desc="Play/Pause player"),
+        Key([mod,mod1], "h", lazy.spawn("playerctl position 10-"), desc="Play/Pause player"),
+        Key([mod,mod1], "l", lazy.spawn("playerctl position 10+"), desc="Play/Pause player"),
 
         #opacity
         Key([mod], "minus", lazy.window.down_opacity()),
@@ -284,7 +288,7 @@ screens = [
                     widget.Battery(format="{char} {percent:2.0%}",discharge_char="", charge_char="",full_char="",notify_below=10,update_interval=10),
                     #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                     widget.Clock(format="%Y-%m-%d" ),
-                    widget.TextBox("",padding=0,fontsize=20, name="default",foreground="#d75f5f"),
+                    # widget.TextBox("",padding=0,fontsize=20, name="default",foreground="#d75f5f"),
                     widget.Clock(background="#c4a7e7", foreground="#191724", format="%I:%M%p", update_interval=60.0),
                     widget.QuickExit(default_text='⏻',  countdown_format='[{} seconds remaining]',background="#ff0000"),
                     widget.Spacer(length=1,background="#ff0000")
