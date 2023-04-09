@@ -18,3 +18,15 @@ export XDG_CURRENT_DESKTOP="Wayland"
 #eval "$(fnm env)"
 eval "$(zoxide init zsh)"
 # eval "`pip completion --zsh`"
+ 
+ 
+ 
+export FZF_DEFAULT_COMMAND='fd --color=always --type file --follow --hidden --exclude .git'
+export FZF_DEFAULT_OPTS="--ansi"
+
+fcd() {
+  local target;
+  target="$(fzf)" || return; 
+  cd "${target%/*}";
+}
+
