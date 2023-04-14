@@ -9,9 +9,7 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 lvim.transparent_window = true
-
 vim.opt.rnu = true
-
 lvim.plugins = {
 { 'alexghergh/nvim-tmux-navigation', config = function()
         require'nvim-tmux-navigation'.setup {
