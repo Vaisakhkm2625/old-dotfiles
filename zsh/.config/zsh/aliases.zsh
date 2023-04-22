@@ -6,7 +6,7 @@ alias rm='rm -i'
 alias vi='lvim'
 alias open='xdg-open'
 
-
+alias qrpaste="wl-paste | qrencode -t utf8"
 
 export FZF_DEFAULT_COMMAND='fd --color=always --type file --follow --hidden --exclude .git'
 export FZF_DEFAULT_OPTS="--ansi"
