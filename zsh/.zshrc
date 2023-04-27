@@ -17,7 +17,9 @@ plug "zap-zsh/vim"
 plug "zap-zsh/zap-prompt"
 plug "zap-zsh/fzf"
 plug "zap-zsh/exa"
+plug "Aloxaf/fzf-tab"
 plug "zsh-users/zsh-syntax-highlighting"
+
 
 # keybinds
 bindkey '^ ' autosuggest-accept
