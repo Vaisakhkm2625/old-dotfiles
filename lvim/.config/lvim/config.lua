@@ -24,6 +24,11 @@ lvim.plugins = {
             }
         }
     end
+},
+{ 'postfen/clipboard-image.nvim' },
+{
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
 }
 }
 
