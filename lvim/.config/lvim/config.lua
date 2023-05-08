@@ -9,28 +9,92 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 lvim.transparent_window = true
+lvim.builtin.bufferline.active = false
 vim.opt.rnu = true
+vim.opt.formatoptions:remove { "c", "r", "o" }
+vim.g.maplocalleader = "\\"
+
 lvim.plugins = {
-{ 'alexghergh/nvim-tmux-navigation', config = function()
-        require'nvim-tmux-navigation'.setup {
-            disable_when_zoomed = true, -- defaults to false
-            keybindings = {
-                left = "<C-h>",
-                down = "<C-j>",
-                up = "<C-k>",
-                right = "<C-l>",
-                last_active = "<C-\\>",
-                next = "<C-Space>",
-            }
+  {
+    'alexghergh/nvim-tmux-navigation',
+    config = function()
+      require 'nvim-tmux-navigation'.setup {
+        disable_when_zoomed = true, -- defaults to false
+        keybindings = {
+          left = "<C-h>",
+          down = "<C-j>",
+          up = "<C-k>",
+          right = "<C-l>",
+          last_active = "<C-\\>",
+          next = "<C-Space>",
         }
+      }
     end
-},
-{ 'postfen/clipboard-image.nvim' },
-{
+  },
+
+  -- markdown tests
+  { 'postfen/clipboard-image.nvim' },
+  -- { 'vimwiki/vimwiki' },
+  {
     "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+    build = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+    'edluffy/hologram.nvim'
+  },
+  {
+    'renerocksai/telekasten.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' }
+  },
+
+  --neorg
+    {
+      "nvim-neorg/neorg",
+      build = ":Neorg sync-parsers",
+      opts = {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      },
+      dependencies = { { "nvim-lua/plenary.nvim" } },
+    }
 }
+
+-- note taking
+reload 'vaisakhkm.notes'
+reload 'vaisakhkm.neorg'
+-- note taking
+
+
+
+-- testing image support
+require('hologram').setup{
+    auto_display = true -- WIP automatic markdown image display, may be prone to breaking
 }
+
+-- telescope enhancement
+lvim.builtin.telescope.on_config_done = function(telescope)
+  -- require('telescope').load_extension('media_files')
+
+  -- pcall(telescope.load_extension, "frecency")
+  -- pcall(telescope.load_extension, "neoclip")
+  -- any other extensions loading
+end
+
+
+-- //testing image support
 
 
 -- general
@@ -53,21 +117,21 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }
+local _, actions = pcall(require, "telescope.actions")
+lvim.builtin.telescope.defaults.mappings = {
+  -- for input mode
+  i = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+    ["<C-n>"] = actions.cycle_history_next,
+    ["<C-p>"] = actions.cycle_history_prev,
+  },
+  -- for normal mode
+  n = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+  },
+}
 
 -- Change theme settings
 -- lvim.builtin.theme.options.dim_inactive = true

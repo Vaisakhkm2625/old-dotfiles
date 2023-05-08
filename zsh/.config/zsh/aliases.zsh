@@ -5,6 +5,7 @@ alias rm='rm -i'
 
 alias vi='lvim'
 alias open='xdg-open'
+alias lsv='/bin/ls --hyperlink=auto --color=auto'
 
 alias qrpaste="wl-paste | qrencode -t utf8"
 
