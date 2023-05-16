@@ -77,7 +77,8 @@ reload 'vaisakhkm.notes'
 reload 'vaisakhkm.neorg'
 -- note taking
 
-
+--keybindings
+lvim.builtin.which_key.mappings["t"] = { "<cmd>Telescope<CR>", "Telescope" }
 
 -- testing image support
 require('hologram').setup{
@@ -92,10 +93,10 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   -- pcall(telescope.load_extension, "neoclip")
   -- any other extensions loading
 end
-
-
 -- //testing image support
 
+-- lvim.builtin.dap.on_config_done(
+-- )
 
 -- general
 lvim.log.level = "warn"
@@ -272,3 +273,5 @@ lvim.builtin.treesitter.highlight.enable = true
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+--
+-- require("dap-python").setup("python", {})

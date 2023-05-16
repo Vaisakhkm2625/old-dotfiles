@@ -20,7 +20,7 @@ eval "$(zoxide init zsh)"
 # eval "`pip completion --zsh`"
  
  
- 
+#fcd for switching directry with fzf
 export FZF_DEFAULT_COMMAND='fd --color=always --type file --follow --hidden --exclude .git'
 export FZF_DEFAULT_OPTS="--ansi"
 
