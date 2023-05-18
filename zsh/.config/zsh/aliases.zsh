@@ -15,4 +15,6 @@ alias lsv='/bin/ls --hyperlink=auto --color=auto'
 
 alias qrpaste="wl-paste | qrencode -t utf8"
 
-
+#neovide wayland workaround
+# alias neovide="WINIT_UNIX_BACKEND=x11 snap run neovide"
+# alias neovide="WINIT_UNIX_BACKEND=x11 neovide"

@@ -8,7 +8,7 @@ an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
-lvim.transparent_window = true
+-- lvim.transparent_window = true
 lvim.builtin.bufferline.active = false
 vim.opt.rnu = true
 vim.opt.formatoptions:remove { "c", "r", "o" }
@@ -31,6 +31,10 @@ lvim.plugins = {
       }
     end
   },
+
+  {'navarasu/onedark.nvim'},
+
+
 
   -- markdown tests
   { 'postfen/clipboard-image.nvim' },
