@@ -3,12 +3,8 @@
 
 clone this repo with
 ```sh
-git clone git@gitlab.com:vaisakhkm2625/dotfiles.git --recurse-submodules
+git clone git@gitlab.com:vaisakhkm2625/dotfiles.git 
 ```
-
-
-
-
 
 - install pillow python library for image ranger support in kitty 
 ```
