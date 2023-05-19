@@ -1,6 +1,14 @@
 # My config files
 > auther: Vaisakh K M
 
+clone this repo with
+```sh
+git clone git@gitlab.com:vaisakhkm2625/dotfiles.git --recurse-submodules
+```
+
+
+
+
 
 - install pillow python library for image ranger support in kitty 
 ```
