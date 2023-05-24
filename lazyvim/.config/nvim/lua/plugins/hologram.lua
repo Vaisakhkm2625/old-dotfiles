@@ -1,17 +1,6 @@
-return {
-  {
-    "vhyrro/hologram.nvim",
-    config = function()
-      require("hologram").setup({
-        auto_display = true,
-      })
-    end,
-  },
-}
---
 -- return {
 --   {
---     "edluffy/hologram.nvim",
+--     "vhyrro/hologram.nvim",
 --     config = function()
 --       require("hologram").setup({
 --         auto_display = true,
@@ -19,3 +8,14 @@ return {
 --     end,
 --   },
 -- }
+--
+return {
+  {
+    "edluffy/hologram.nvim",
+    config = function()
+      require("hologram").setup({
+        auto_display = true,
+      })
+    end,
+  },
+}
