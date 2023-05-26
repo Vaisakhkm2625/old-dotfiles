@@ -4,3 +4,6 @@
 
 vim.g.maplocalleader = "\\"
 vim.g.foldlevelstart = 3
+-- vim.opt.formatoptions:remove({ "c", "r", "o" })
+
+vim.opt.formatoptions = "jqlnt"
