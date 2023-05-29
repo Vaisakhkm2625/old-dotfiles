@@ -55,6 +55,12 @@ lvim.plugins = {
     dependencies = { 'nvim-telescope/telescope.nvim' }
   },
 
+  --dev
+  {
+    "nvim-treesitter/playground",
+  },
+
+
   --neorg
     {
       "nvim-neorg/neorg",

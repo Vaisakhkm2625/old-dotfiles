@@ -5,5 +5,5 @@ return {
   },
 
   -- my test plugins
-  { "lua/myplugin" },
+  { "lua/hologram-math-preview.nvim" },
 }
