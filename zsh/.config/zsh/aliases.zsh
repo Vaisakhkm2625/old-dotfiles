@@ -7,7 +7,7 @@ alias rm='rm -i'
 alias r='ranger'
 alias rd='. ranger'
 
-alias vi='lvim'
+alias vi='nvim'
 alias open='xdg-open'
 
 # lsv for clickable links
