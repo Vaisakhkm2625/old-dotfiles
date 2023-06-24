@@ -12,6 +12,7 @@ return {
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
         ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.summary"] = {},
         ["core.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
@@ -22,7 +23,9 @@ return {
         },
       },
     },
-    dependencies = { { "nvim-lua/plenary.nvim" } },
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
   },
   {
     "jbyuki/nabla.nvim",

@@ -4,10 +4,27 @@
 
 -- nvim-tmux-navigation keymaps
 local nvim_tmux_nav = require("nvim-tmux-navigation")
+local wk = require("which-key")
+
 vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
 vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
 vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
 vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
 vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
 vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
-vim.keymap.set("n", "<leader>L", "<cmd>Alpha<cr>", { desc = "Alpha" })
+
+wk.register({ ["<leader>L"] = { name = "+LazyVim" } })
+vim.keymap.set("n", "<leader>La", "<cmd>Alpha<cr>", { desc = "Alpha" })
+vim.keymap.set("n", "<leader>Lc", "<cmd>:e $MYVIMRC<cr>", { desc = "Alpha" })
+
+wk.register({ ["<leader>h"] = { name = "+random" } })
+
+vim.keymap.set("n", "<leader>hn", "<cmd>Telescope notify<cr>", { desc = "Notification history" })
+vim.keymap.set("n", "<leader>hh", "<cmd>source %<cr>", { desc = "Source current file" })
+
+vim.keymap.set(
+  "n",
+  "<leader>hy",
+  "<cmd>lua require('hologram-math-preview').update_under_cursor()<cr>",
+  { desc = "hologram-math-preview update_under_cursor" }
+)
