@@ -31,6 +31,10 @@ return {
     "jbyuki/nabla.nvim",
     keys = {
       {
+        "<leader>n",
+        desc = "Notes",
+      },
+      {
         "<leader>nl",
         function()
           require("nabla").popup()

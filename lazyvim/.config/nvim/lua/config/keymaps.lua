@@ -15,13 +15,13 @@ vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
 
 wk.register({ ["<leader>L"] = { name = "+LazyVim" } })
 vim.keymap.set("n", "<leader>La", "<cmd>Alpha<cr>", { desc = "Alpha" })
-vim.keymap.set("n", "<leader>Lc", "<cmd>:e $MYVIMRC<cr>", { desc = "Alpha" })
+vim.keymap.set("n", "<leader>Lc", "<cmd>:e $MYVIMRC<cr>", { desc = "Config" })
 
-wk.register({ ["<leader>h"] = { name = "+random" } })
-
-vim.keymap.set("n", "<leader>hn", "<cmd>Telescope notify<cr>", { desc = "Notification history" })
+wk.register({ ["<leader>h"] = { name = "+Quick" } })
+vim.keymap.set("n", "<leader>sn", "<cmd>Telescope notify<cr>", { desc = "Notification history" })
 vim.keymap.set("n", "<leader>hh", "<cmd>source %<cr>", { desc = "Source current file" })
 
+-- tmp
 vim.keymap.set(
   "n",
   "<leader>hy",

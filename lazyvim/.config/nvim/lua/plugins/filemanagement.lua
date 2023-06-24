@@ -11,7 +11,7 @@ return {
         desc = "add mark to harpoon",
       },
       {
-        "<leader>j",
+        "<leader>hu",
         function()
           require("harpoon.ui").toggle_quick_menu()
         end,
@@ -22,28 +22,28 @@ return {
         function()
           require("harpoon.ui").nav_file(1)
         end,
-        desc = "goto harpoon file 1",
+        desc = "harpoon file 1",
       },
       {
         "<leader>2",
         function()
           require("harpoon.ui").nav_file(2)
         end,
-        desc = "goto harpoon file 2",
+        desc = "harpoon file 2",
       },
       {
         "<leader>3",
         function()
           require("harpoon.ui").nav_file(3)
         end,
-        desc = "goto harpoon file 3",
+        desc = "harpoon file 3",
       },
       {
         "<leader>4",
         function()
           require("harpoon.ui").nav_file(4)
         end,
-        desc = "goto harpoon file 4",
+        desc = "harpoon file 4",
       },
     },
   },
