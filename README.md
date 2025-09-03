@@ -1,6 +1,10 @@
 # My config files
 > auther: Vaisakh K M
 
+find my updated repos here 
+- https://gitlab.com/vaisakhkm2625/dotfiles
+- https://github.com/Vaisakhkm2625/nix-config
+
 clone this repo with
 ```sh
 git clone git@gitlab.com:vaisakhkm2625/dotfiles.git 
